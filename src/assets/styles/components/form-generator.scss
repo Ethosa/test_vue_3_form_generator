@@ -1,0 +1,298 @@
+@use 'sass:color';
+
+$form-bg: #212121;
+$form-border: #262626;
+$form-radius: 10px;
+$accent: #6366f1;
+$text: #f8f9f2;
+$muted: #6b7280;
+
+.form-generator {
+  max-width: 520px;
+  padding: 20px;
+  background: $form-bg;
+  border: 1px solid $form-border;
+  border-radius: $form-radius;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text;
+}
+
+input,
+textarea,
+select {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid $form-border;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  color: $text;
+  background-color: #525252;
+
+  &:focus {
+    border-color: $accent;
+    box-shadow: 0 0 0 2px rgba($accent, 0.15);
+  }
+}
+
+input::placeholder {
+  color: color.adjust($text, $lightness: -5%, $alpha: -0.5);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+select {
+  background-color: #fff;
+}
+
+input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: $text;
+  cursor: pointer;
+
+  input {
+    accent-color: $accent;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+button[type='submit'] {
+  background-color: $accent;
+  color: $text;
+
+  &:hover {
+    background-color: color.adjust($accent, $lightness: -5%);
+  }
+}
+
+button[type='button'] {
+  background-color: #484848;
+  color: $text;
+
+  &:hover {
+    background-color: #525252;
+  }
+}
+
+
+.check-control,
+.radio-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  color: $text;
+  font-size: 14px;
+}
+
+/* hide native inputs */
+.check-control input,
+.radio-control input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* checkbox box */
+.check-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background-color: #2f2f2f;
+  border: 1px solid $form-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.check-box::after {
+  content: '';
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) scale(0) translateY(-2px) translateX(1px);
+  transition: transform 0.1s ease;
+}
+
+/* checkbox checked */
+.check-control input:checked + .check-box {
+  background-color: $accent;
+  border-color: $accent;
+}
+
+.check-control input:checked + .check-box::after {
+  transform: rotate(-45deg) scale(1) translateY(-2px) translateX(1px);
+}
+
+/* radio group */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* radio box */
+.radio-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #2f2f2f;
+  border: 1px solid $form-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease;
+}
+
+.radio-box::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: $accent;
+  transform: scale(0);
+  transition: transform 0.12s ease;
+}
+
+/* radio checked */
+.radio-control input:checked + .radio-box {
+  border-color: $accent;
+}
+
+.radio-control input:checked + .radio-box::after {
+  transform: scale(1);
+}
+
+/* hover */
+.check-control:hover .check-box,
+.radio-control:hover .radio-box {
+  border-color: color.adjust($accent, $lightness: -10%);
+}
+
+/* focus (keyboard) */
+.check-control input:focus-visible + .check-box,
+.radio-control input:focus-visible + .radio-box {
+  box-shadow: 0 0 0 2px color.adjust($accent, $alpha: -0.8);
+}
+
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid $form-border;
+  background-color: #2f2f2f;
+  color: $text;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.select-wrapper select:hover {
+  border-color: color.adjust($accent, $lightness: -10%);
+}
+
+.select-wrapper select:focus {
+  outline: none;
+  border-color: $accent;
+  box-shadow: 0 0 0 2px color.adjust($accent, $alpha: -0.8);
+}
+
+/* arrow */
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+}
+
+.select-arrow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-right: 2px solid $muted;
+  border-bottom: 2px solid $muted;
+  transform: rotate(45deg);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+/* hover arrow */
+.select-wrapper:hover .select-arrow::before {
+  border-color: $accent;
+}
+
+/* focus arrow */
+.select-wrapper select:focus + .select-arrow::before {
+  border-color: $accent;
+  transform: rotate(225deg);
+}
+
+/* disabled */
+.select-wrapper select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
